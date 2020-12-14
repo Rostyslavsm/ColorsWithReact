@@ -30,6 +30,7 @@ export default class SingleColorPalette extends Component {
         return (
             <div className="Palette">
                 <h1>single color palette</h1>
+                <h1>single color palette</h1>
                 <div className="Palette-colors">{colorBoxes}</div>
             </div>
         )
