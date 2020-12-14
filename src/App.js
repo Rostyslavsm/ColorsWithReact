@@ -4,7 +4,7 @@ import seedColors from "./seedColors";
 import {generatePalette} from "./colorsHelper";
 import {Route , Switch } from "react-router-dom";
 import PaletteList from "./PaletteList";
-import SingleColorPalette from "./SingleColorPalette.js"
+import SingleColorPalette from "./SingleColorPalette.js";
 
 export default class App extends Component {
 
