@@ -35,7 +35,7 @@ export default class SingleColorPalette extends Component {
             <ColorBox color={color.hex} 
                         key={color.name} 
                         background={color[format]} 
-                        showLink={false}/>
+                        showingFullPalette={false}/>
         )
         return (
             <div className="SingleColorPalette Palette">
