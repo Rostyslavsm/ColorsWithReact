@@ -15,10 +15,15 @@ export default {
         border:"1px solid white",
     },
     nav:{
-        displat:"flex",
+        display:"flex",
         width:"100%",
+        justifyContent:"space-between",
+        alignItems:"center",
         color:"white",
-        justifyContent:"space-between"
+        "& a":{
+            color:"white",
+            textDecoration:"none",
+        },
     },
     palettes:{
         boxSizing:"border-box",
