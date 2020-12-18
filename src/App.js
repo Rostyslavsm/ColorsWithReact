@@ -23,12 +23,18 @@ export default class App extends Component {
   savePalette(newPalette){
     this.setState({palettes:[...this.state.palettes , newPalette]})
   }
+  
+
   render(){
     return (
       <Switch>
         <Route  exact
                 path="/palette/new"
-                render={routeProps=><NewPaletteForm savePalette={this.savePalette} {...routeProps}/>}/>
+                render={routeProps=>
+                  <NewPaletteForm palettes={this.state.palettes}
+                                  savePalette={this.savePalette}
+                                 {...routeProps}/>}
+                                 />
         <Route  exact 
                 path="/" 
                 render={routeProps=>
