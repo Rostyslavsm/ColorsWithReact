@@ -8,7 +8,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
-import { mergeClasses } from '@material-ui/styles';
 import styles from "./styles/NavbarStyles"
 
 export default withStyles(styles)(class Navbar extends Component {

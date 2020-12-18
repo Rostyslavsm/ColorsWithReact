@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewPaletteForm() {
+export default function NewPaletteForm(props) {
     const [currentColor , setColor ] = React.useState("red");
     const [colors , addNewColor ] = React.useState([{name:"blue", color:"red"}]);
     const [newName , handleChange]= React.useState("")
@@ -85,6 +85,12 @@ export default function NewPaletteForm() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+
+    let newPaletteName="New Test Palette"
+    const newPalette ={paletteName:newPaletteName,
+                      id: newPaletteName.toLowerCase().replace(/ /g,"-") ,
+                      colors: colors};
+    
   
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -92,6 +98,10 @@ export default function NewPaletteForm() {
   
     const handleDrawerClose = () => {
       setOpen(false);
+    };
+
+    const handleSubmit = () => {
+      props.savePalette(newPalette) ; props.history.push("/")
     };
 
     React.useEffect(
@@ -109,13 +119,13 @@ export default function NewPaletteForm() {
          )
       )
     );
-
-
+    
     return (
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
           position="fixed"
+          color="default"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
@@ -133,6 +143,12 @@ export default function NewPaletteForm() {
             <Typography variant="h6" noWrap>
               Persistent drawer
             </Typography>
+            <Button variant="contained" 
+                    color="primary" 
+                    onClick={handleSubmit}
+                    >
+                      Save Palette
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -160,7 +176,10 @@ export default function NewPaletteForm() {
           <ChromePicker color={currentColor} 
                         onChangeComplete={(newColor)=>setColor(newColor.hex)}
           />
-          <ValidatorForm onSubmit={() => (addNewColor([...colors , {name:newName , color:currentColor}]) , handleChange(""))}>
+          <ValidatorForm onSubmit={
+            () => {addNewColor([...colors , {name:newName , color:currentColor}]); 
+            handleChange("")}
+             }>
             <TextValidator 
               value={newName}
               onChange={(evt)=>handleChange(evt.target.value)}
@@ -185,7 +204,7 @@ export default function NewPaletteForm() {
           <div className={classes.drawerHeader} />
           
             {colors.map(colorObj=>(
-              <DragableColorBox color={colorObj.color} name={colorObj.name}/>
+              <DragableColorBox key={colorObj.color} color={colorObj.color} name={colorObj.name}/>
             ))}
           
         </main>
