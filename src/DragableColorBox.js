@@ -16,7 +16,7 @@ export default function DragableColorBox(props) {
     const classes = useStyles();
     return (
         <div className={classes.root} style={{backgroundColor:props.color}}>
-            {props.color}
+            {props.name}
         </div>
     )
 }
