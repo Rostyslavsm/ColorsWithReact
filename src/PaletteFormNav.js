@@ -24,7 +24,8 @@ export default class PaletteFormNav extends Component {
     }
     
     render() {
-       const { open , classes , handleDrawerOpen , handleSubmit , newPaletteName , changeNewPaletteName}=this.props
+       const { open , classes , handleDrawerOpen , handleSubmit ,
+                 newPaletteName , changeNewPaletteName}=this.props
         return (
             <div>
                 <CssBaseline />
