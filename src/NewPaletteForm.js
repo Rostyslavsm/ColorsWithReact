@@ -80,12 +80,13 @@ const useStyles = makeStyles((theme) => ({
 export default function NewPaletteForm(props) {
     const [currentColor , setColor ] = React.useState("red");
     const [colors , addNewColor ] = React.useState([{name:"blue", color:"red"}]);
-    const [newColorName , handleChange]= React.useState("")
-    const [newPaletteName, changeNewPaletteName]=React.useState("")
+    const [newColorName , handleChange]= React.useState("");
+    const [newPaletteName, changeNewPaletteName]=React.useState("");
+    const [open, setOpen] = React.useState(false);
 
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    
 
     const newPalette ={paletteName:newPaletteName,
                       id: newPaletteName.toLowerCase().replace(/ /g,"-") ,
@@ -103,6 +104,10 @@ export default function NewPaletteForm(props) {
       props.savePalette(newPalette) ; props.history.push("/")
     };
 
+    const removeColor = (colorName) => {
+      addNewColor(colors.filter(color=>color.name!==colorName))
+    };
+    
     React.useEffect(
       ()=>ValidatorForm.addValidationRule("isColorNameUnique", (value) => 
         colors.every(
@@ -220,9 +225,10 @@ export default function NewPaletteForm(props) {
           <div className={classes.drawerHeader} />
           
           {colors.map(colorObj=>(
-            <DragableColorBox key={colorObj.color} 
+            <DragableColorBox key={colorObj.name} 
                               color={colorObj.color} 
-                              name={colorObj.name}/>
+                              name={colorObj.name}
+                              handleClick={()=>removeColor(colorObj.name)}/>
           ))}
         </main>
       </div>
