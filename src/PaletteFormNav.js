@@ -57,6 +57,7 @@ class PaletteFormNav extends Component {
         this.state={newPaletteName:"" , formShowing:false};
         this.showForm=this.showForm.bind(this);
         this.hideForm=this.hideForm.bind(this);
+        this.showEmoji=this.showEmoji.bind(this);
     }
     componentDidMount(){
         ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
@@ -66,7 +67,10 @@ class PaletteFormNav extends Component {
           );
     }
     showForm(){
-        this.setState({formShowing:true})
+        this.setState({formShowing:"form"})
+    }
+    showEmoji(){
+        this.setState({formShowing:"emoji"})
     }
     hideForm(){
         this.setState({formShowing:false})
@@ -134,6 +138,7 @@ class PaletteFormNav extends Component {
                                         history={history}
                                         hideForm={this.hideForm}
                                         formShowing={this.state.formShowing}
+                                        showEmoji={this.showEmoji}
                 />}  
             </div>
         )

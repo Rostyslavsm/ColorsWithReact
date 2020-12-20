@@ -11,17 +11,23 @@ import 'emoji-mart/css/emoji-mart.css';
 
 
 export default function PaletteMetaForm (props) {
-  const [open, setOpen] = React.useState(false);
+  const [stage, showEmojiPicker] = React.useState("");
   const [newPaletteName, changeNewPaletteName] = React.useState("");
   const { palettes , savePalette , colors , history}=props;
   const newPalette ={paletteName:newPaletteName,
     id: newPaletteName.toLowerCase().replace(/ /g,"-") ,
     colors: colors};
 
+  const handleSavePalette = (emoji) =>{
+    savePalette({...newPalette , emoji:emoji.native}) ;
+    history.push("/")
+  }
+
   const handleSubmit = () => {
     savePalette(newPalette) ;
     history.push("/")
   };
+
   React.useEffect(()=>{
     ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
            palettes.every(
@@ -31,15 +37,19 @@ export default function PaletteMetaForm (props) {
 })
 
   return (
-    
-      <Dialog open={props.formShowing} onClose={props.hideForm} aria-labelledby="form-dialog-title">
+      <div>
+      <Dialog open={props.formShowing==="emoji"} onClose={props.hideForm}>
+          <DialogTitle>Choose a palette emoji</DialogTitle>
+          <Picker title="Pick a palette emoji" onSelect={handleSavePalette}/>
+      </Dialog>
+      <Dialog open={props.formShowing==="form"} onClose={props.hideForm} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Choose a palette name</DialogTitle>
-        <ValidatorForm onSubmit={handleSubmit}>
+        <ValidatorForm onSubmit={props.showEmoji}>
         <DialogContent>
           <DialogContentText>
             Please enter a name for your new beautiful palette. Make sure it's unique
           </DialogContentText>
-          <Picker/>
+          
               
                     <TextValidator label="Enter Palette Name" 
                                     fullWidth
@@ -67,6 +77,6 @@ export default function PaletteMetaForm (props) {
         </DialogActions>
         </ValidatorForm> 
       </Dialog>
-    
+      </div>
   );
 }
