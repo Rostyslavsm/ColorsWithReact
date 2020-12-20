@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {withStyles} from "@material-ui/core/styles";
+import PaletteMetaForm from "./PaletteMetaForm";
 import {Link} from "react-router-dom";
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -60,7 +61,7 @@ class PaletteFormNav extends Component {
     
     render() {
        const { open , classes , handleDrawerOpen , handleSubmit ,
-                 newPaletteName , changeNewPaletteName}=this.props
+                 newPaletteName , changeNewPaletteName , palettes}=this.props
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -86,7 +87,7 @@ class PaletteFormNav extends Component {
                     </Typography>
                 </Toolbar>
                 <div className={classes.navBtns}>
-                    <ValidatorForm onSubmit={handleSubmit}>
+                    {/* <ValidatorForm onSubmit={handleSubmit}>
                     <TextValidator label="Enter Palette Name" 
                                     name="newPaletteName"
                                     value={newPaletteName}
@@ -100,7 +101,9 @@ class PaletteFormNav extends Component {
                             >
                                 Save Palette
                     </Button>
-                    </ValidatorForm>
+                    </ValidatorForm> */}
+                    <PaletteMetaForm palettes={palettes}
+                                    handleSubmit={handleSubmit}/>
                     <Link to="/">
                         <Button variant="contained" color="secondary">Go Back</Button>
                     </Link>
