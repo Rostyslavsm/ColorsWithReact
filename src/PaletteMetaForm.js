@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,7 +11,11 @@ import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 export default function PaletteMetaForm (props) {
   const [open, setOpen] = React.useState(false);
   const [newPaletteName, changeNewPaletteName] = React.useState("");
-  const {handleSubmit , palettes}=props;
+  const { palettes , savePalette , colors , history}=props;
+  const newPalette ={paletteName:newPaletteName,
+    id: newPaletteName.toLowerCase().replace(/ /g,"-") ,
+    colors: colors};
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,6 +25,10 @@ export default function PaletteMetaForm (props) {
     setOpen(false);
   };
 
+  const handleSubmit = () => {
+    savePalette(newPalette) ;
+    history.push("/")
+  };
   React.useEffect(()=>{
     ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
            palettes.every(

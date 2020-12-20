@@ -74,15 +74,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewPaletteForm(props) {
-    const {maxColors=20 , palettes }=props;
+    const {maxColors=20 , palettes , savePalette ,history}=props;
     const [colors , addNewColor ] = React.useState(palettes[0].colors);
-    const [newPaletteName, changeNewPaletteName]=React.useState("");
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
     const theme = useTheme();
-    const newPalette ={paletteName:newPaletteName,
-                      id: newPaletteName.toLowerCase().replace(/ /g,"-") ,
-                      colors: colors};
     const paletteIsFull=(colors.length >= maxColors);
   
     const handleDrawerOpen = () => {
@@ -90,9 +86,6 @@ export default function NewPaletteForm(props) {
     };
     const handleDrawerClose = () => {
       setOpen(false);
-    };
-    const handleSubmit = () => {
-      props.savePalette(newPalette) ; props.history.push("/")
     };
     const removeColor = (colorName) => {
       addNewColor(colors.filter(color=>color.name!==colorName))
@@ -112,9 +105,9 @@ export default function NewPaletteForm(props) {
         <PaletteFormNav open={open}
                        palettes={palettes}
                        handleDrawerOpen={handleDrawerOpen}
-                       handleSubmit={handleSubmit}
-                       newPaletteName={newPaletteName}
-                       changeNewPaletteName={changeNewPaletteName}
+                       savePalette={savePalette}
+                       colors={colors}
+                       history={history}
                        />
         <Drawer
           className={classes.drawer}

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Button } from '@material-ui/core';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+import { ValidatorForm } from 'react-material-ui-form-validator';
 
 const drawerWidth = 400;
 
@@ -60,8 +60,8 @@ class PaletteFormNav extends Component {
     }
     
     render() {
-       const { open , classes , handleDrawerOpen , handleSubmit ,
-                 newPaletteName , changeNewPaletteName , palettes}=this.props
+       const { open , classes , handleDrawerOpen , palettes ,
+                  savePalette , colors , history}=this.props;
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -103,7 +103,11 @@ class PaletteFormNav extends Component {
                     </Button>
                     </ValidatorForm> */}
                     <PaletteMetaForm palettes={palettes}
-                                    handleSubmit={handleSubmit}/>
+                                    savePalette={savePalette}
+                                    colors={colors}
+                                    history={history}
+                                    />
+                                    
                     <Link to="/">
                         <Button variant="contained" color="secondary">Go Back</Button>
                     </Link>
