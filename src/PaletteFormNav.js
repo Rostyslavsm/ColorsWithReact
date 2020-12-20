@@ -41,20 +41,22 @@ const styles = theme => ({
         marginRight: theme.spacing(2),
       },
       navBtns:{
-        marginRight:"1rem"
+        marginRight:"1rem",
+        "& a":{
+            textDecoration: "none",
+        }
       },
       button:{
         margin: "0 0.5rem",
-        "& a":{
-        textDecoration: "none",}
       },
 });
 
 class PaletteFormNav extends Component {
     constructor(props){
         super(props);
-        this.state={newPaletteName:"" , formShowing:"true"};
-        this.showForm=this.showForm.bind(this)
+        this.state={newPaletteName:"" , formShowing:false};
+        this.showForm=this.showForm.bind(this);
+        this.hideForm=this.hideForm.bind(this);
     }
     componentDidMount(){
         ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>
@@ -65,6 +67,9 @@ class PaletteFormNav extends Component {
     }
     showForm(){
         this.setState({formShowing:true})
+    }
+    hideForm(){
+        this.setState({formShowing:false})
     }
     render() {
        const { open , classes , handleDrawerOpen , palettes ,
@@ -127,6 +132,8 @@ class PaletteFormNav extends Component {
                                         savePalette={savePalette}
                                         colors={colors}
                                         history={history}
+                                        hideForm={this.hideForm}
+                                        formShowing={this.state.formShowing}
                 />}  
             </div>
         )
