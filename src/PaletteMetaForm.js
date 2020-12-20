@@ -38,44 +38,42 @@ export default function PaletteMetaForm (props) {
 })
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
+    
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Choose a palette name</DialogTitle>
+        <ValidatorForm onSubmit={handleSubmit}>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
+            Please enter a name for your new beautiful palette. Make sure it's unique
           </DialogContentText>
 
-              <ValidatorForm onSubmit={handleSubmit}>
+              
                     <TextValidator label="Enter Palette Name" 
+                                    fullWidth
+                                    margin="normal"
                                     name="newPaletteName"
                                     value={newPaletteName}
                                     onChange={(evt)=>changeNewPaletteName(evt.target.value) }
                                     validators={['required',"isPaletteNameUnique"]}
                                     errorMessages={['Palette name can not be empty', 'Name already used']}
                                     />
-                    <Button variant="contained" 
-                            color="primary"
-                            type="submit"
-                            >
-                                Save Palette
-                    </Button>
-                    </ValidatorForm> 
+                    
+                    
 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
-            Subscribe
-          </Button>
+            <Button variant="contained" 
+                            color="primary"
+                            type="submit"
+                            >
+                                Save Palette
+            </Button>
         </DialogActions>
+        </ValidatorForm> 
       </Dialog>
-    </div>
+    
   );
 }
