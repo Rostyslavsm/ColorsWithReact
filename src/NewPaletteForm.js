@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    display: "flex",
+    alignItems:"center",
   },
   drawerHeader: {
     display: 'flex',
@@ -55,41 +57,46 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  container:{
+    width: "90%",
+    height:"100%",
+    display:"flex",
+    flexDirection:"column",
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  buttons:{
+    width:"100%",
+  },
+  button:{
+    width:"50%",
+  },
 }));
 
 export default function NewPaletteForm(props) {
     const {maxColors=20 , palettes }=props;
-
     const [colors , addNewColor ] = React.useState(palettes[0].colors);
     const [newPaletteName, changeNewPaletteName]=React.useState("");
     const [open, setOpen] = React.useState(false);
-
     const classes = useStyles();
     const theme = useTheme();
-    
-
     const newPalette ={paletteName:newPaletteName,
                       id: newPaletteName.toLowerCase().replace(/ /g,"-") ,
                       colors: colors};
-
     const paletteIsFull=(colors.length >= maxColors);
   
     const handleDrawerOpen = () => {
       setOpen(true);
     };
-  
     const handleDrawerClose = () => {
       setOpen(false);
     };
-
     const handleSubmit = () => {
       props.savePalette(newPalette) ; props.history.push("/")
     };
-
     const removeColor = (colorName) => {
       addNewColor(colors.filter(color=>color.name!==colorName))
     };
-
     const onSortEnd = ({ oldIndex, newIndex }) => 
         addNewColor(arrayMove(colors, oldIndex, newIndex));
 
@@ -116,42 +123,47 @@ export default function NewPaletteForm(props) {
           open={open}
           classes={{
             paper: classes.drawerPaper,
-          }}
-        >
+          }}>
           <div className={classes.drawerHeader}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
-          </div>
-          <Divider />
-          <Typography variant="h4">
-              Design your Palette
-          </Typography>
-          <div>
-            <Button variant="contained" color="secondary" onClick={()=>addNewColor([])}>Clear Palette</Button>
-            <Button variant="contained" 
-                    color="primary" 
-                    onClick={addRandomColor} 
-                    disabled={paletteIsFull}>
-                      {paletteIsFull ? "Palette is full":"Random Color"}
-            </Button>
-          </div>
-          <ColorPickerForm 
-                          addNewColor={addNewColor}
-                          colors={colors}
-                          paletteIsFull={paletteIsFull}
-          />
-        </Drawer>
-        <main className={clsx(classes.content, {
-            [classes.contentShift]: open,
-          })}>
-          <div className={classes.drawerHeader} />
-          <DragableColorList colors={colors} 
-                              removeColor={removeColor} 
-                              axis='xy'
-                              onSortEnd={onSortEnd}
-                              />
-          </main>
+            </div>
+              <Divider />
+              <div className={classes.container}>
+                <Typography variant="h4" gutterBottom>
+                    Design your Palette
+                </Typography>
+                <div className={classes.buttons}>
+                  <Button variant="contained" 
+                          className={classes.button}
+                          color="secondary" 
+                          onClick={()=>addNewColor([])}>Clear Palette
+                          </Button>
+                  <Button variant="contained" 
+                          className={classes.button}
+                          color="primary" 
+                          onClick={addRandomColor} 
+                          disabled={paletteIsFull}>
+                            {paletteIsFull ? "Palette is full":"Random Color"}
+                          </Button>
+                </div>
+                <ColorPickerForm addNewColor={addNewColor}
+                                  colors={colors}
+                                  paletteIsFull={paletteIsFull}
+                                />
+              </div>
+            </Drawer>
+              <main className={clsx(classes.content, {
+                  [classes.contentShift]: open,
+                              })}>
+                <div className={classes.drawerHeader}/>
+                <DragableColorList colors={colors} 
+                                    removeColor={removeColor} 
+                                    axis='xy'
+                                    onSortEnd={onSortEnd}
+                                    />
+              </main>
       </div>
     );
   }
