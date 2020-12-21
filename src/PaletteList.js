@@ -12,7 +12,7 @@ export default withStyles(styles)(class PaletteList extends Component {
     };
 
     render() {
-        const { palettes , classes } = this.props;
+        const { palettes , classes , deletePalette } = this.props;
         return (
             <div className={classes.root}>
                 <div className={classes.container}>
@@ -23,7 +23,9 @@ export default withStyles(styles)(class PaletteList extends Component {
                     <div className={classes.palettes}>
                         {palettes.map(palette=>(
                                 <MiniPalette {...palette} 
+                                            id={palette.id}
                                             key={palette.id}
+                                            deletePalette={deletePalette}
                                             handleClick={()=>this.goToPalette(palette.id)} />
                             ))
                         }
