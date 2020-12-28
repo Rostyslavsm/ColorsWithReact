@@ -47,13 +47,13 @@ export default withStyles(styles)(class PaletteList extends Component {
     };
 
     render() {
-        const { palettes, classes, deletePalette } = this.props;
-        const { openDeleteDialog, deletingId } = this.state;
+        const { palettes, classes } = this.props;
+        const { openDeleteDialog } = this.state;
         return (
             <div className={classes.root}>
                 <div className={classes.container}>
                     <nav className={classes.nav}>
-                        <h1 className={classes.heading}>React Colors</h1>
+                        <h1 className={classes.heading}>ColorsWithReact</h1>
                         <Link to="/palette/new">Create Palette</Link>
                     </nav>
 

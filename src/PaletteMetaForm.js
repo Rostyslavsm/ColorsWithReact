@@ -11,7 +11,6 @@ import 'emoji-mart/css/emoji-mart.css';
 
 
 export default function PaletteMetaForm (props) {
-  const [stage, showEmojiPicker] = React.useState("");
   const [newPaletteName, changeNewPaletteName] = React.useState("");
   const { palettes , savePalette , colors , history}=props;
   const newPalette ={paletteName:newPaletteName,
@@ -23,10 +22,10 @@ export default function PaletteMetaForm (props) {
     history.push("/")
   }
 
-  const handleSubmit = () => {
-    savePalette(newPalette) ;
-    history.push("/")
-  };
+  // const handleSubmit = () => {
+  //   savePalette(newPalette) ;
+  //   history.push("/");
+  // };
 
   React.useEffect(()=>{
     ValidatorForm.addValidationRule("isPaletteNameUnique", (value) =>

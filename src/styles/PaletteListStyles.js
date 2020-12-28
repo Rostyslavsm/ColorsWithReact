@@ -21,7 +21,7 @@ const styles = {
         overflow:"scroll",
     },
     heading:{
-        color:"red",
+        color:"#fbfb21",
         fontSize:"2rem",
     },
     container:{
