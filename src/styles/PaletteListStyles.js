@@ -16,7 +16,7 @@ const styles = {
         display:"flex",
         alignItems:"flex-start",
         justifyContent:"center",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#330055",
         backgroundImage: `url(${bg})`,
         overflow:"scroll",
     },
@@ -30,7 +30,7 @@ const styles = {
         alignItems:"flex-start",
         flexDirection:"column",
         flexWrap:"wrap",
-        border:"1px solid white",
+        // border:"1px solid white",
         [sizes.down("xl")]:{
             width:"80%",
         },
